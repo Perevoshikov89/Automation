@@ -1,8 +1,9 @@
-    def capitilize(self, string: str) -> str:
-        """
-        Принимает на вход текст, делает первую букву заглавной и возвращает этот же текст
-        Пример: `capitilize("skypro") -> "Skypro"`
-        """
-        return string.capitalize()
+     Bug ID: 1
+     Description: Incorrect method name "capitilize".
+     Location: string_utils.py, line 1
+     Severity: Low
+     Steps to reproduce: Attempt to call StringUtils.capitilize(some_string)
+     Expected result: Correct capitalization of the first letter 
+     Actual result: NameError due to misspelling of the method as "capitilize" instead of "capitalize"
 
-        опечатка в строках 1, 4
+

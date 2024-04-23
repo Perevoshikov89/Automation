@@ -7,13 +7,13 @@ from string_utils import StringUtils
 # Пример: `capitilaze("skypro") -> "Skypro"`
 
 @pytest.mark.positive_test
-def test_capitilaze_positive():
+def test_capitalize_positive():
     Stringutils = StringUtils()
     res = Stringutils.capitalize("yuri")
     assert res == "Yuri"
 
 @pytest.mark.negative_test
-def test_capitilaze_negative():
+def test_capitalize_negative():
     Stringutils = StringUtils()
     res = Stringutils.capitalize("123")
     assert res == "123"
