@@ -1,0 +1,8 @@
+    def capitilize(self, string: str) -> str:
+        """
+        Принимает на вход текст, делает первую букву заглавной и возвращает этот же текст
+        Пример: `capitilize("skypro") -> "Skypro"`
+        """
+        return string.capitalize()
+
+        опечатка в строках 1, 4
