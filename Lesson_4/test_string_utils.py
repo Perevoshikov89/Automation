@@ -52,13 +52,14 @@ def test_to_list_positive():
 
 @pytest.mark.positive_test
 def test_contains_positive():
+    res = True
     Stringutils = StringUtils()
-    if  Stringutils.contains("Yuri", "Y"):
-        res = True
+    if  not Stringutils.contains("Yuri", "Y"):
+        res = False
     if Stringutils.contains("Yuri", "a"):
         res = False
-res = ("Y")
-assert res
+
+    assert res is True
 
 # Удаляет все подстроки из переданной строки 
 # Пример 1: `delete_symbol("SkyPro", "k") -> "SyPro"`
@@ -80,49 +81,52 @@ def test_del_symbol_negative():
 # Пример 1: `starts_with("SkyPro", "S") -> True`
 # Пример 2: `starts_with("SkyPro", "P") -> False`
 
-def test_starts_with():
+@pytest.mark.positive_test
+def test_starts_with_positive():
+    res = True
     Stringutils = StringUtils()
-    if Stringutils.starts_with("Yuri", "Y"):
-        res = True
+    if not Stringutils.starts_with("Yuri", "Y"):
+        res = False
 
     if Stringutils.starts_with("Yuri", "P"):
         res = False
     
-    res = ("Y")
-    assert res
+    assert res is True
 
 # Возвращает `True`, если строка заканчивается заданным символом и `False` - если нет \n 
 # Пример 1: `end_with("SkyPro", "o") -> True`
 # Пример 2: `end_with("SkyPro", "y") -> False`
 
-def test_end_with():
+@pytest.mark.positive_test
+def test_end_with_positive():
+    res = True
     Stringutils = StringUtils()
-    if Stringutils.end_with("Yuri", "i"):
-        res = True
+    if not Stringutils.end_with("Yuri", "i"):
+        res = False
     if Stringutils.end_with("Yuri", "y"):
         res = False
 
-    res = ("i")
-    assert res
+    assert res is True
 
 # Возвращает `True`, если строка пустая и `False` - если нет \n 
 # Пример 1: `is_empty("") -> True`
 # Пример 2: `is_empty(" ") -> True`
 # Пример 3: `is_empty("SkyPro") -> False`
 
+@pytest.mark.positive_test
 def test_empty():
+    res = True
     Stringutils = StringUtils()
-    if Stringutils.is_empty(""):
-        res = True
+    if not Stringutils.is_empty(""):
+        res = False
 
-    if Stringutils.is_empty(" "):
-        res = True
+    if not Stringutils.is_empty(" "):
+        res = False
 
     if Stringutils.is_empty("Yuri"):
         res = False
 
-    res = (" ")
-    assert res
+    assert res is True
 
 # Преобразует список элементов в строку с указанным разделителем \n 
 # Параметры: \n 
