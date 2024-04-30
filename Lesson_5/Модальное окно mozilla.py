@@ -10,14 +10,12 @@ driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()
 # Зайди на сайт
 driver.get("http://the-internet.herokuapp.com/entry_ad")
 
-# Зайди на сайт
-driver.get("http://the-internet.herokuapp.com/entry_ad")
 sleep(10)
 
 # Найди кнопку "close" и кликни на нее
 
-close_button = driver.find_element(By.CSS_SELECTOR, ".close-modal")
+close_button = driver.find_element(By.XPATH, '//p[text()="Close"]')
 close_button.click()
-sleep(5)
+sleep(3)
 
 driver.quit()
