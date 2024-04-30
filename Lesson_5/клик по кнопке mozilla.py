@@ -19,3 +19,5 @@ delete_buttons = driver.find_elements(By.CSS_SELECTOR, 'button[onclick="deleteEl
 
 # Выведи размер списка кнопок "Delete"
 print("Размер списка кнопок 'Delete':", len(delete_buttons))
+
+driver.quit()

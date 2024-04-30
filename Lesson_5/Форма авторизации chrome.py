@@ -22,4 +22,5 @@ input_password_field.send_keys("SuperSecretPassword!")
 login_button = driver.find_element(By.CSS_SELECTOR, 'button[class="radius"]')
 login_button.click()
 
-sleep(10)
+sleep(5)
+driver.quit()

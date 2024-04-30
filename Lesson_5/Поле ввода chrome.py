@@ -20,4 +20,5 @@ input_field.clear()
 # Введи в это же поле  999
 input_field.send_keys("999")
 
-sleep(10)
+sleep(5)
+driver.quit()

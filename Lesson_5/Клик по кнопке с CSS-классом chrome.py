@@ -9,8 +9,11 @@ driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install())
 # Зайди на сайт
 driver.get("http://uitestingplayground.com/classattr")
 
-# Найди кнопку "синию кнопку" и кликни на нее
-blue_button = driver.find_element(By.CSS_SELECTOR, "button[class='btn class2 btn-primary btn-test']")
-blue_button.click()
+# Найди кнопку "синию кнопку" и кликни на нее 3 раза
 
-sleep(10)
+for _ in range(3):
+    blue_button = driver.find_element(By.CSS_SELECTOR, "button[class='btn class2 btn-primary btn-test']")
+    blue_button.click()
+
+sleep(5)
+driver.quit()

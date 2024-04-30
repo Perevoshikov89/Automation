@@ -9,9 +9,11 @@ driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install())
 # Зайди на сайт
 driver.get("http://uitestingplayground.com/dynamicid")
 
-# Найди кнопку "синию кнопку" и кликни на нее
+# Найди кнопку "синию кнопку" и кликни на нее 3 раза
 
-button_with_dynamic_id = driver.find_element(By.CSS_SELECTOR, 'button[class="btn btn-primary"]')
-button_with_dynamic_id.click()
+for _ in range(3):
+    button_with_dynamic_id = driver.find_element(By.CSS_SELECTOR, 'button[class="btn btn-primary"]')
+    button_with_dynamic_id.click()
 
-sleep(10)
+sleep(5)
+driver.quit()

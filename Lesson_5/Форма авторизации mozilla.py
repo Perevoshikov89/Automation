@@ -21,3 +21,5 @@ input_password_field.send_keys("SuperSecretPassword!")
 # Нажми кнопку Login
 login_button = driver.find_element(By.CSS_SELECTOR, 'button[class="radius"]')
 login_button.click()
+
+driver.quit()
