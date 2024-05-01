@@ -6,11 +6,11 @@ from selenium.webdriver.common.by import By
 
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
-# Зайди на сайт yайди кнопку "синию кнопку" и кликни на нее
+# Зайди на сайт найди кнопку "синию кнопку" и кликни на нее
 
 for _ in range(3):
     driver.get("http://uitestingplayground.com/classattr")
-    blue_button = driver.find_element(By.CSS_SELECTOR, "button[class='btn class2 btn-primary btn-test']")
+    blue_button = driver.find_element(By.CSS_SELECTOR, "button[class='btn class1 btn-primary btn-test']")
     blue_button.click()
 
 sleep(5)
