@@ -12,6 +12,8 @@ for _ in range(3):
     driver.get("http://uitestingplayground.com/classattr")
     blue_button = driver.find_element(By.CSS_SELECTOR, ".btn-primary")
     blue_button.click()
+    alert = driver.switch_to.alert
+    alert.accept()
 
 sleep(5)
 driver.quit()
