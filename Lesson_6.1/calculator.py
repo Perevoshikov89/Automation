@@ -10,3 +10,5 @@ driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()
 
 # Зайди на сайт
 driver.get("https://bonigarcia.dev/selenium-webdriver-java/slow-calculator.html")
+
+driver.quit()

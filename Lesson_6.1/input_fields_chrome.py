@@ -47,7 +47,6 @@ driver.find_element(By.CSS_SELECTOR, 'input[name="company"]').send_keys("SkyPro"
 submit_button = driver.find_element(By.CSS_SELECTOR, "button[type=submit]")
 submit_button.click()
 
-# Ожидание, пока страница не обновится после отправки формы
-WebDriverWait(driver, 10).until(EC.url_changes(driver.current_url))
+driver.sleep(5)
 
 driver.quit()
