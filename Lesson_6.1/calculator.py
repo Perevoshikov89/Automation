@@ -17,11 +17,11 @@ delay_rield = driver.find_element(By.ID, 'delay').clear()
 delay_rield = driver.find_element(By.ID, 'delay').send_keys("45")
 
 
-# Найди и нажми кнопку 7
-seven_button = driver.find_element(By.CSS_SELECTOR, 'span.btn.btn-outline-primary[value="7"]').click()
-
-# seven_button = driver.find_element(By.CSS_SELECTOR, 'span[class = "btn btn-outline-primary"[value="7"]]').click()
-
+# Нажми 7 + 8 =
+seven_button = driver.find_element(By.XPATH, '//html/body/main/div/div[4]/div/div/div[2]/span[1]').click()
+plus_button = driver.find_element(By.XPATH, '//html/body/main/div/div[4]/div/div/div[2]/span[4]').click()
+eigth_button = driver.find_element(By.XPATH, '//html/body/main/div/div[4]/div/div/div[2]/span[2]').click()
+result_button = driver.find_element(By.XPATH, '//html/body/main/div/div[4]/div/div/div[2]/span[15]').click()
 
 
 
