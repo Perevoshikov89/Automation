@@ -3,6 +3,7 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from time import sleep
 
 
 # Установка и запуск драйвера Firefox
@@ -19,6 +20,9 @@ input_last_name_field = driver.find_element(By.CSS_SELECTOR, 'input[name="last-n
 
 # В поле Address  введи значение 'Ленина, 55-3'
 input_address_field = driver.find_element(By.CSS_SELECTOR, 'input[name="address"]').send_keys("Ленина, 55-3")
+
+# Поле zip-code очисти
+input_address_field = driver.find_element(By.CSS_SELECTOR, 'input[name="zip-code"]').clear()
 
 # В поле Email  введи значение 'test@skypro.com'
 input_email_field = driver.find_element(By.CSS_SELECTOR, 'input[name="e-mail"]').send_keys("test@skypro.com")
@@ -38,7 +42,9 @@ input_job_position_field = driver.find_element(By.CSS_SELECTOR, 'input[name="job
 # В поле Company  введи значение 'SkyPro'
 input_company_field = driver.find_element(By.CSS_SELECTOR, 'input[name="company"]').send_keys("SkyPro")
 
+sleep(5)
 # Нажми кнопку Submit
 submit_button = driver.find_element(By.CSS_SELECTOR, "button[type=submit]").click()
 
+sleep(5)
 driver.quit()

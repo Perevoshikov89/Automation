@@ -4,8 +4,6 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
@@ -43,10 +41,9 @@ driver.find_element(By.CSS_SELECTOR, 'input[name="job-position"]').send_keys("QA
 # В поле Company  введи значение 'SkyPro'
 driver.find_element(By.CSS_SELECTOR, 'input[name="company"]').send_keys("SkyPro")
 
+sleep(5)
 # Нажми кнопку Submit
-submit_button = driver.find_element(By.CSS_SELECTOR, "button[type=submit]")
-submit_button.click()
+submit_button = driver.find_element(By.CSS_SELECTOR, "button[type=submit]").click()
 
-driver.sleep(5)
-
+sleep(5)
 driver.quit()
