@@ -24,8 +24,9 @@ def test_input_fields():
     driver.find_element(By.CSS_SELECTOR, '[name="job-position"]').send_keys("QA")
     driver.find_element(By.CSS_SELECTOR, '[name="company"]').send_keys("SkyPro")
     driver.find_element(By.CSS_SELECTOR, '[name="zip-code"]').clear()
-    driver.find_element(By.CSS_SELECTOR, '[type="submit"]').click()
     sleep(5)
+    driver.find_element(By.CSS_SELECTOR, '[type="submit"]').click()
+    
     
  # Проверь подсветку полей
     zip_code_field = driver.find_element(By.ID, "zip-code")
