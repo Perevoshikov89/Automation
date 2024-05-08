@@ -52,7 +52,7 @@ total = driver.find_element(By.CSS_SELECTOR, 'div[class="summary_total_label"]')
 print(total)
 
 sleep(3)
-driver(quit)
+driver.quit()
 
 
 
