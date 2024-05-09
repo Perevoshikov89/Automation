@@ -3,6 +3,8 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 
@@ -25,8 +27,13 @@ eigth_button = driver.find_element(By.XPATH, '//html/body/main/div/div[4]/div/di
 result_button = driver.find_element(By.XPATH, '//html/body/main/div/div[4]/div/div/div[2]/span[15]').click()
 
 # Покажи результат
-sum_nums = driver.find_element(By.XPATH, '/html/body/main/div/div[4]/div/div/div[1]/div').text()
+wait = WebDriverWait(driver, 10)
+result_element = wait.until(EC. text_to_be_present_in_element((By.CSS_SELECTOR, '[class = "screen"]'), '15'))
+
+sum_nums = result_element.text()
 print(sum_nums)
+
+
 
 
 
