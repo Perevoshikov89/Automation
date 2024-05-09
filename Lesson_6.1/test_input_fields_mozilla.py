@@ -29,11 +29,14 @@ def test_input_fields():
     
     
  # Проверь подсветку полей
-    zip_code_field = driver.find_element(By.ID, "zip-code")
-    assert "is-invalid" in zip_code_field.get_attribute("class")
-    alert_element = driver.find_element(By.CLASS_NAME, "alert.py-2.alert-danger")
-    assert alert_element.is_displayed()  # Проверь, что элемент видим
+    zip_code_color = driver.find_element(By.CSS_SELECTOR, '[name="zip-code"]').value_of_css_property('background_color')
+    assert zip_code_color == ("#f8d7da")
     
+    other_fields = ['#first_name', '#last_name', '#addres', '#city', '#country', '#e-mail', '#phone', '#job-position', '#company']
+    for field in other_fields:
+        field_color = driver.find_element(By.CSS_SELECTOR, field). value_of_css_property('background_color')
+        assert field_color == ("#d1e7dd")
+
 
 driver.quit()
 

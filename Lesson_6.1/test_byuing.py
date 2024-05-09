@@ -55,7 +55,7 @@ def test_byuing():
 
     sleep(3)
 
-    assert total == "$58.29"
+    assert total == "Total: $58.29"
 
 driver.quit()
 
