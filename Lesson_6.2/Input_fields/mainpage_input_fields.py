@@ -3,7 +3,6 @@ from time import sleep
 
 class MainPage:
 
-
 # Установка и запуск драйвера Chrome, переход на страницу
 
     def __init__(self, driver):
@@ -25,4 +24,4 @@ class MainPage:
         self._driver.find_element(By.CSS_SELECTOR, '[type="submit"]').click()
         sleep(10)
         
-        self._driver.implicitly_wait(4)
+
