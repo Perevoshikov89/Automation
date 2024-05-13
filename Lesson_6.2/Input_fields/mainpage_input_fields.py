@@ -22,6 +22,6 @@ class MainPage:
         self._driver.find_element(By.CSS_SELECTOR, '[name="zip-code"]').clear()
         sleep(5)
         self._driver.find_element(By.CSS_SELECTOR, '[type="submit"]').click()
-        sleep(10)
+        sleep(5)
         
 
