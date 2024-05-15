@@ -13,7 +13,13 @@ def test_input_fields():
         service = Service(ChromeDriverManager().install()))
     
     main_page = MainPage(browser)
-    main_page.color
+    zip_code_color = main_page.get_zip_code_color("zip-code")
+    assert zip_code_color == ("#f8d7da")
+
+    other_fields = main_page.get_other_fields_color_except("zip-code")
+    for color in other_fields:
+        assert color == ("#d1e7dd")
+
 
     browser.quit()
 

@@ -24,12 +24,14 @@ class MainPage:
         self._driver.find_element(By.CSS_SELECTOR, '[type="submit"]').click()
         sleep(5)
 
-    def color(self):
+    def get_zip_code_color(self):
         zip_code_color = self._driver.find_element(By.CSS_SELECTOR, '[name="zip-code"]').value_of_css_property('background_color')
-        assert zip_code_color == ("#f8d7da")
+        return zip_code_color
     
-        other_fields = ['#first_name', '#last_name', '#addres', '#city', '#country', '#e-mail', '#phone', '#job-position', '#company']
+    def get_other_fields_color(self):
+        other_fields = ['#first-name', '#last-name', '#address', '#city', '#country', '#e-mail', '#phone', '#job-position', '#company']
+        field_colors = {}
         for field in other_fields:
-            field_color = self._driver.find_element(By.CSS_SELECTOR, field). value_of_css_property('background_color')
-        assert field_color == ("#d1e7dd")
-
+            field_color = self._driver.find_element(By.CSS_SELECTOR, field).value_of_css_property('background_color')
+            field_colors[field] = field_color
+        return field_colors
