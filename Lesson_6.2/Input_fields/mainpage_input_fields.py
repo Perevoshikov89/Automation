@@ -10,28 +10,33 @@ class MainPage:
         self._driver.maximize_window()
         self._driver.get("https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
         self._driver.implicitly_wait(4)
-        self._driver.find_element(By.CSS_SELECTOR, '[name="first-name"]').send_keys("Иван")
-        self._driver.find_element(By.CSS_SELECTOR, '[name="last-name"]').send_keys("Петров")
-        self._driver.find_element(By.CSS_SELECTOR, '[name="address"]').send_keys("Ленина, 55-3")
-        self._driver.find_element(By.CSS_SELECTOR, '[name="city"]').send_keys("Москва")
-        self._driver.find_element(By.CSS_SELECTOR, '[name="country"]').send_keys("Россия")
-        self._driver.find_element(By.CSS_SELECTOR, '[name="e-mail"]').send_keys("test@skypro.com")
-        self._driver.find_element(By.CSS_SELECTOR, '[name="phone"]').send_keys("+7985899998787")
-        self._driver.find_element(By.CSS_SELECTOR, '[name="job-position"]').send_keys("QA")
-        self._driver.find_element(By.CSS_SELECTOR, '[name="company"]').send_keys("SkyPro")
-        self._driver.find_element(By.CSS_SELECTOR, '[name="zip-code"]').clear()
-        sleep(5)
-        self._driver.find_element(By.CSS_SELECTOR, '[type="submit"]').click()
-        sleep(5)
 
-    def get_zip_code_color(self):
-        zip_code_color = self._driver.find_element(By.CSS_SELECTOR, '[name="zip-code"]').value_of_css_property('background_color')
-        return zip_code_color
-    
-    def get_other_fields_color(self):
-        other_fields = ['#first-name', '#last-name', '#address', '#city', '#country', '#e-mail', '#phone', '#job-position', '#company']
-        field_colors = {}
+    def personal_data(self, name, last, address, email, phone, city, country, job, company):
+        self._driver.find_element(By.CSS_SELECTOR, 'input[name = "first-name"]').send_keys(name)
+        self._driver.find_element(By.CSS_SELECTOR, 'input[name = "last-name"]').send_keys(last)
+        self._driver.find_element(By.CSS_SELECTOR, 'input[name = "address"]').send_keys(address)
+        self._driver.find_element(By.CSS_SELECTOR, 'input[name = "e-mail"]').send_keys(email)
+        self._driver.find_element(By.CSS_SELECTOR, 'input[name = "phone"]').send_keys(phone)
+        self._driver.find_element(By.CSS_SELECTOR, 'input[name = "zip-code"]').clear()
+        self._driver.find_element(By.CSS_SELECTOR, 'input[name = "city"]').send_keys(city)
+        self._driver.find_element(By.CSS_SELECTOR, 'input[name = "country"]').send_keys(country)
+        self._driver.find_element(By.CSS_SELECTOR, 'input[name = "job-position"]').send_keys(job)
+        self._driver.find_element(By.CSS_SELECTOR, 'input[name = "company"]').send_keys(company)
+        
+        sleep(2)
+        self._driver.find_element(By.CSS_SELECTOR, '[type="submit"]').click()
+       
+
+    def zip_code_red(self):
+        zip_code_color = self._driver.find_element(By.CSS_SELECTOR, "#zip-code").value_of_css_property("background-color")
+        return zip_code_color == 'rgba(248, 215, 218, 1)'
+
+    def other_fields_green(self):
+        other_fields = ["#first-name", "#last-name", "#address", "#e-mail",
+                        "#phone", "#city", "#country", "#job-position", "#company"]
         for field in other_fields:
-            field_color = self._driver.find_element(By.CSS_SELECTOR, field).value_of_css_property('background_color')
-            field_colors[field] = field_color
-        return field_colors
+            field_color = self._driver.find_element(By.CSS_SELECTOR, field).value_of_css_property("background-color") 
+        return field_color == 'rgba(209, 231, 221, 1)'
+
+    def close_driver(self):
+        self._driver.quit()
