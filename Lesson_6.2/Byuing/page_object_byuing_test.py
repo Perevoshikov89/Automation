@@ -25,9 +25,6 @@ def test_byuing():
 
 
 
-driver.quit()
-
-
 
 
 
