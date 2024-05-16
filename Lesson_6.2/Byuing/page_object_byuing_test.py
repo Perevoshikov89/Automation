@@ -1,15 +1,11 @@
-from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
+
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.by import By
+
 
 from byuing_page import ByuingPage
 
-
-
-# Установка и запуск драйвера Chrome
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
 
 def test_byuing():
     driver = webdriver.Chrome(service=ChromeService
