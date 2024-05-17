@@ -14,8 +14,10 @@ def test_calculator():
     calculator = Calculator(driver)
     calculator.delay
     calculator.sum_nums
-    calculator.result
+    assert calculator.result == '15'
+    
     calculator.close_driver
+
 
 
 

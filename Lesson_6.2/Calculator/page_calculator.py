@@ -13,7 +13,7 @@ class Calculator:
     def delay(self):
         delay_field = self._driver.find_element(By.CSS_SELECTOR, 'input[id = "delay"]')
         delay_field.clear()
-        delay_field.send_keys('45')
+        delay_field.send_keys('2')
 
     def sum_nums(self):
         self._driver.find_element(By.XPATH, '//html/body/main/div/div[4]/div/div/div[2]/span[1]').click()
@@ -22,9 +22,9 @@ class Calculator:
         self._driver.find_element(By.XPATH, '//html/body/main/div/div[4]/div/div/div[2]/span[15]').click()
 
     def result(self):
-        wait = WebDriverWait(self._driver, 45)
+        wait = WebDriverWait(self._driver, 4)
         wait.until(EC. text_to_be_present_in_element((By.CSS_SELECTOR, '[class = "screen"]'), '15'))
-        return self._driver.find_element(By.CSS_SELECTOR, '[class = "screen"]').text == "15"
+        return self._driver.find_element(By.CSS_SELECTOR, '[class = "screen"]').text
 
     def close_driver(self):
         self._driver.quit()
