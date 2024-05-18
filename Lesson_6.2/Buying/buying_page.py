@@ -2,9 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
-
-class ByuingPage:
+class BuyingPage:
 
     def __init__(self, driver):
         self._driver = driver
@@ -25,21 +23,20 @@ class ByuingPage:
         return counter
 
     def go_to_cart(self):
-        self._driver.find_element(By.XPATH, "//html/body/div/div/div/div[1]/div[1]/div[3]/a").click()
-        self._driver.find_element(By.XPATH, "//*[@id='checkout']").click()
+        self._driver.find_element(By.CSS_SELECTOR, "a.shopping_cart_link").click()
+        self._driver.find_element(By.ID, "checkout").click()
 
     def personal_data(self, name, last_name, postal_code):
         self._driver.find_element(By.ID, "first-name").send_keys(name)
         self._driver.find_element(By.ID, "last-name").send_keys(last_name)
         self._driver.find_element(By.ID, "postal-code").send_keys(postal_code)
-        self._driver.find_element(By.CSS_SELECTOR, 'input[name="continue"]').click()
+        self._driver.find_element(By.ID, "continue").click()
 
     def total_cost(self):
-        txt = WebDriverWait(self._driver, "4").until(
-            EC.presence_of_element_located((By.CLASS_NAME, 'div[class="summary_total_label"]'))).text
+        txt = WebDriverWait(self._driver, 4).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, '.summary_total_label'))).text
         return txt
 
     def close(self):
-        self._driver.find_element(By.CSS_SELECTOR, "#finish").click()
+        self._driver.find_element(By.ID, "finish").click()
         self._driver.quit()
-        
