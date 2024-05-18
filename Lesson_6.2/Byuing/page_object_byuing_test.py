@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
-
 from webdriver_manager.chrome import ChromeDriverManager
 
 
@@ -16,9 +15,8 @@ def test_byuing():
     byuing.go_to_cart()
     byuing.personal_data("Yuri", "Perevoshikov", "123456")
     price_calc = byuing.total_cost()
-    assert price_calc == price_added
+    assert price_calc == price_added()
     byuing.close()
-
 
 
 

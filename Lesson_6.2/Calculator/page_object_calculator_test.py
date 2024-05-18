@@ -12,11 +12,11 @@ def test_calculator():
     driver = webdriver.Chrome(service=ChromeService
                               (ChromeDriverManager().install()))
     calculator = Calculator(driver)
-    calculator.delay
-    calculator.sum_nums
-    assert calculator.result == '15'
+    calculator.delay()
+    calculator.sum_nums()
+    assert calculator.result() == '15'
     
-    calculator.close_driver
+    calculator.close_driver()
 
 
 

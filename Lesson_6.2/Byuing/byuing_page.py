@@ -42,5 +42,4 @@ class ByuingPage:
     def close(self):
         self._driver.find_element(By.CSS_SELECTOR, "#finish").click()
         self._driver.quit()
-
         
