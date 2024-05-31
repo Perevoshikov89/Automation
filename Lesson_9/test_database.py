@@ -52,4 +52,4 @@ def test_delete_emloyee():
 def test_delete_company():
     db = create_engine(db_connection_string)
     sql = text("delete from company  where id = :id")
-    rows = db.execute(sql, id = 5318)
+    rows = db.execute(sql, id = 5340)
