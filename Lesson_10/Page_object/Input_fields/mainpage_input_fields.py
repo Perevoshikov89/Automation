@@ -1,16 +1,18 @@
+import allure
 from selenium.webdriver.common.by import By
 from time import sleep
 
 class MainPage:
 
-# Установка и запуск драйвера Chrome, переход на страницу
 
+    @allure.step("Запуск браузера Chrome, переход на страницу с полями ввода")
     def __init__(self, driver):
         self._driver = driver
         self._driver.maximize_window()
         self._driver.get("https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
         self._driver.implicitly_wait(4)
 
+    @allure.step("Заполнение полей ввода валидными значениями, поле ввода zip-code оставить незаполненным")
     def personal_data(self, name, last, address, email, phone, city, country, job, company):
         self._driver.find_element(By.CSS_SELECTOR, 'input[name = "first-name"]').send_keys(name)
         self._driver.find_element(By.CSS_SELECTOR, 'input[name = "last-name"]').send_keys(last)
@@ -27,10 +29,12 @@ class MainPage:
         self._driver.find_element(By.CSS_SELECTOR, '[type="submit"]').click()
        
 
+    @allure.step("Запись в переменную zip_code_color цвета поля ввода zip-code")
     def zip_code_red(self):
         zip_code_color = self._driver.find_element(By.CSS_SELECTOR, "#zip-code").value_of_css_property("background-color")
         return zip_code_color
 
+    @allure.step("Запись в переменную field_color цвета заполненых полей ввода")
     def other_fields_green(self):
         other_fields = ["#first-name", "#last-name", "#address", "#e-mail",
                         "#phone", "#city", "#country", "#job-position", "#company"]
@@ -38,5 +42,6 @@ class MainPage:
             field_color = self._driver.find_element(By.CSS_SELECTOR, field).value_of_css_property("background-color") 
         return field_color
 
+    @allure.step("Закрытие браузера Chrome")
     def close_driver(self):
         self._driver.quit()

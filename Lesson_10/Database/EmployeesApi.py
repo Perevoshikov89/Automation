@@ -1,10 +1,12 @@
+import allure
 import requests
 
 class EmployeesApi:
     def __init__(self, url):
         self.url = url
 
-    def create_company(self, name, description=""):
+    @allure.step("api.Создание компании {name}:{description}")
+    def create_company(self, name: str, description=""):
         company = {
             'name': name,
             'description': description
@@ -14,20 +16,31 @@ class EmployeesApi:
         resp = requests.post(self.url + '/company', json=company, headers=my_headers)
         return resp.json()
 
-    def get_company(self, id):
+    @allure.step("api.Получение компании по {id}")
+    def get_company(self, id: int):
         resp = requests.get(self.url + '/company/' + str(id))
         return resp.json()
 
-    def get_employee(self,id):
+    @allure.step("api.Получение сотрудника по {id}")
+    def get_employee(self, id):
         resp = requests.get(self.url + '/employee/' + str(id))
         return resp.json()
 
-    def get_employees_list(self,companyId):
+    @allure.step("api.Получение списка сотрудников компании {companyId}")
+    def get_employees_list(self, companyId: int):
         params = {'company': companyId}
         resp = requests.get(self.url + '/employee', params=params)
         return resp.json()
 
+    @allure.step("API.Получение токена авторизации {user}:{password}")
     def get_token(self, user = 'bloom', password = 'fire-fairy'):
+        """
+        Получение токена авторизации
+        :params user(str): логин 
+        :params password(str): пароль 
+
+        :return: str: token
+        """
         creds = {
            'username': user,
            'password': password
@@ -35,7 +48,8 @@ class EmployeesApi:
         resp = requests.post(self.url+'/auth/login', json=creds)
         return resp.json()['userToken']
 
-    def create_employee(self, firstName, lastName, middleName, companyId, email, url, phone, birthdate, isActive):
+    @allure.step("api.Добавление нового сотрудника {firstName}:{lastName}:{middleName}:{companyId}:{email}:{url}:{phone}:{birthdate}:{isActive}")
+    def create_employee(self, firstName: str, lastName: str, middleName: str, companyId: int, email: str, url: str, phone: int, birthdate: bool, isActive: bool):
         employee = {
             'firstName': firstName,
             'lastName': lastName,
@@ -52,7 +66,8 @@ class EmployeesApi:
         resp = requests.post(self.url + '/employee', json=employee, headers=my_headers)
         return resp.json()
 
-    def edit_employee(self, new_lastName, new_email, new_url, new_phone, new_isActive, id):
+    @allure.step("api.Редактирование сотрудника {new_lastName}:{new_email}:{new_url}:{new_phone}:{new_isActive}:{id}")
+    def edit_employee(self, new_lastName: str, new_email: str, new_url: str, new_phone: int, new_isActive: bool, id: int):
         employee = {
            'lastName': new_lastName,
            'email': new_email,
@@ -64,7 +79,8 @@ class EmployeesApi:
         resp = requests.patch(self.url + '/employee/' + str(id), headers=my_headers, json=employee)
         return resp.json()
 
-    def delete_employee(self, id):
+    @allure.step("api.Удаление сотрудника по {id}")
+    def delete_employee(self, id: int):
         employee = {
            'id': id
            }

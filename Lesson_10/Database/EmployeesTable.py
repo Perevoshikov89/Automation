@@ -1,3 +1,4 @@
+import allure
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
 
@@ -16,26 +17,45 @@ class EmployeesTable:
     def __init__(self, connection_string):
         self.__db = create_engine(connection_string)
 
-    def create_company_db(self, name, description):
-        self.__db.execute(self.__scripts["insert company"], new_name = name, new_descr = description)
+        @allure.step("БД.Создание компании {name}:{description}")
+    def create_company_db(self, name: str, description: str):
+        query = self.__db.execute(self.__scripts["insert company"], new_name = name, new_descr = description)
+        allure.attach(str(query.context.cursor.query), 'SQL', allure.attachment_type.TEXT)
 
-    def get_max_id_company(self):
-        return self.__db.execute(self.__scripts["get max id company"]).fetchall()[0][0]
+    @allure.step("БД. Получение максимального {id} компании")
+    def get_max_id_company(self, id: int):
+        query = self.__db.execute(self.__scripts["get max id company"], max_id = id)
+        allure.attach(str(query.context.cursor.query), 'SQL', allure.attachment_type.TEXT)
+        return query.fetchall()[0][0]
 
-    def get_emploees_db(self, company_id):
-        return self.__db.execute(self.__scripts["select"], id = company_id).fetchall()
+    @allure.step("БД. Получение списка сотрудников компании {company_id}")
+    def get_emploees_db(self, company_id: int):
+        query = self.__db.execute(self.__scripts["select"], id = company_id)
+        allure.attach(str(query.context.cursor.query), 'SQL', allure.attachment_type.TEXT)
+        return query.fetchall()
 
-    def delete(self, id):
-        return self.__db.execute(self.__scripts["delete by id"], id_to_delete = id)
+    @allure.step("БД. Удаление компании по {id}")
+    def delete(self, id: int):
+        query = self.__db.execute(self.__scripts["delete by id"], max_id = id)
+        allure.attach(str(query.context.cursor.query), 'SQL', allure.attachment_type.TEXT)
 
-    def create_employee_db(self, first_name, last_name, middle_name, phone, email, birthdate, avatar_url, company_id, is_active):
-        self.__db.execute(self.__scripts["insert new employee"], first_name = first_name, last_name = last_name, middle_name = middle_name, phone = phone, email = email, birthdate = birthdate, avatar_url =avatar_url, company_id = company_id, is_active = is_active)
+    @allure.step("БД.Создание сотрудника {first_name}:{last_name}:{middle_name}:{phone}:{email}:{birthdate}:{avatar_url}:{company_id}:{is_active}")
+    def create_employee_db(self, first_name: str, last_name: str, middle_name: str, phone: int, email: str, birthdate: bool, avatar_url: str, company_id: int, is_active: bool):
+        query = self.__db.execute(self.__scripts["insert new employee"], first_name = first_name, last_name = last_name, middle_name = middle_name, phone = phone, email = email, birthdate = birthdate, avatar_url =avatar_url, company_id = company_id, is_active = is_active)
+        allure.attach(str(query.context.cursor.query), 'SQL', allure.attachment_type.TEXT)
 
-    def get_max_id_employee(self):
-        return self.__db.execute(self.__scripts['get max id empl']).fetchall()[0][0]
+    @allure.step("БД. Получение максимального {id} сотрудника")
+    def get_max_id_employee(self, id: int):
+        query = self.__db.execute(self.__scripts['get max id empl'], max_id_empl = id)
+        allure.attach(str(query.context.cursor.query), 'SQL', allure.attachment_type.TEXT)
+        return query.fetchall()[0][0]
 
-    def update_employee(self, employeeId, new_lastName, new_email, new_url, new_phone, new_isActive):
-        return self.__db.execute(self.scripts['edited employee'], employeeId=employeeId, new_lastName=new_lastName, new_email=new_email, new_url=new_url, new_phone=new_phone, new_isActive=new_isActive)
+    @allure.step("БД. Редактирование сотрудника {employeeId}:{new_lastName}:{new_email}:{new_url}:{new_phone}:{new_isActive}")
+    def update_employee(self, employeeId: int, new_lastName: str, new_email: str, new_url: str, new_phone: int, new_isActive: bool):
+        query = self.__db.execute(self.scripts['edited employee'], employeeId=employeeId, new_lastName=new_lastName, new_email=new_email, new_url=new_url, new_phone=new_phone, new_isActive=new_isActive)
+        allure.attach(str(query.context.cursor.query), 'SQL', allure.attachment_type.TEXT)
 
-    def delete_employee_db(self, id):
-        return self.__db.execute(self.__scripts['delete id employee'], id_to_delete = id)
+    @allure.step("БД. Удаление сотрудника по {id}")
+    def delete_employee_db(self, id: int):
+        query = self.__db.execute(self.__scripts['delete id employee'], max_id_empl = id)
+        allure.attach(str(query.context.cursor.query), 'SQL', allure.attachment_type.TEXT)
