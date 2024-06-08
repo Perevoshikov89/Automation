@@ -13,8 +13,7 @@ from page_calculator import Calculator
 @allure.severity("blocker")
 
 
-# Установка и запуск драйвера Chrome
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+
 
 def test_calculator():
     with allure.step("Запуск браузера Chrome"):

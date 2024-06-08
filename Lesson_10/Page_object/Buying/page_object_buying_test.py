@@ -30,9 +30,8 @@ def test_buying_process():
         page.personal_data("Юрий", "Перевощиков", "123456")
     
     with allure.step("Сравнение итоговой стоимости с конкретным значением"):
-    total = page.total_cost()
+        total = page.total_cost()
     assert total == "Total: $58.29", f"Expected total to be 'Total: $58.29' but got '{total}'"
     
     page.close()
 
-test_buying_process()

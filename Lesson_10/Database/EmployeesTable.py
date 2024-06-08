@@ -17,7 +17,7 @@ class EmployeesTable:
     def __init__(self, connection_string):
         self.__db = create_engine(connection_string)
 
-        @allure.step("БД.Создание компании {name}:{description}")
+    @allure.step("БД.Создание компании {name}:{description}")
     def create_company_db(self, name: str, description: str):
         query = self.__db.execute(self.__scripts["insert company"], new_name = name, new_descr = description)
         allure.attach(str(query.context.cursor.query), 'SQL', allure.attachment_type.TEXT)
