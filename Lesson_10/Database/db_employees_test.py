@@ -10,13 +10,13 @@ db = EmployeesTable("postgresql://x_clients_db_3fmx_user:mzoTw2Vp4Ox4NQH0XKN3Kum
 fake = Faker("ru_RU")
 
 @allure.step("Создание компании")
-def generate_company():
+def test_generate_company()  -> tuple[str, str]:
     name = fake.name()
     description = fake.text(max_nb_chars=20)
     return name, description
 
 @allure.step("Создание сотрудника")
-def generate_employee(companyId):
+def test_generate_employee(companyId: int) -> tuple[str, str, str, str, str, str, str, bool]:
     firstName = fake.first_name()
     lastName = fake.last_name()
     middleName = fake.first_name() + "ович"
@@ -28,7 +28,7 @@ def generate_employee(companyId):
     return firstName, lastName, middleName, phone, email, birthdate, url, isActive
 
 @allure.step("Редактирование сотрудника")
-def generate_edit_employee(companyId):
+def test_generate_edit_employee(companyId: int) -> tuple[str, str, str, str, bool]:
     new_lastName = fake.last_name()
     new_email = fake.email(domain = "example.com")
     new_url = fake.url(schemes = ['http', 'https'])
@@ -40,9 +40,9 @@ def generate_edit_employee(companyId):
 @allure.description("Проверка полного списка сотрудников")
 @allure.feature("READ")
 @allure.severity("blocker")
-def test_get_list_employee():
+def test_get_list_employee()  -> None:
     with allure.step("Cоздание компании"):
-        name, description = generate_company()
+        name, description = test_generate_company()
         db.create_company_db(name, description)
 
     max_id = db.get_max_id_company(id)
@@ -59,9 +59,9 @@ def test_get_list_employee():
 @allure.description("Тест проверяет возможность добавления новых сотрудников")
 @allure.feature("CREATE")
 @allure.severity("blocker")
-def test_add_new_employee():
+def test_add_new_employee()  -> None:
     with allure.step("Cоздание компании"):
-        name, description = generate_company()
+        name, description = test_generate_company()
         db.create_company_db(name, description)
 
     max_id = db.get_max_id_company(id)
@@ -72,7 +72,7 @@ def test_add_new_employee():
     db_list_before = db.get_emploees_db(max_id)
 
     with allure.step("Добавление нового сотрудника"):
-        firstName, lastName, middleName, phone, email, birthdate, url, isActive = generate_employee(max_id)
+        firstName, lastName, middleName, phone, email, birthdate, url, isActive = test_generate_employee(max_id)
         db.create_employee_db(firstName, lastName, middleName, phone, email, birthdate, url, max_id, isActive)
 
     max_id_empl = db.get_max_id_employee(id)
@@ -108,9 +108,9 @@ def test_add_new_employee():
 @allure.description("Тест проверяет возможность редактирования данных сотрудника")
 @allure.feature("UPDATE")
 @allure.severity("blocker")
-def test_patch_employee():
+def test_patch_employee()  -> None:
     with allure.step("Cоздать новую компанию"):
-        name, description = generate_company()
+        name, description = test_generate_company()
         db.create_company_db(name, description)
 
     max_id = db.get_max_id_company(id)
@@ -121,7 +121,7 @@ def test_patch_employee():
     db_list_before = db.get_emploees_db(max_id)
 
     with allure.step("Добавить нового сотрудника"):
-        firstName, lastName, middleName, phone, email, birthdate, url, isActive = generate_employee(max_id)
+        firstName, lastName, middleName, phone, email, birthdate, url, isActive = test_generate_employee(max_id)
         db.create_employee_db(firstName, lastName, middleName, phone, email, birthdate, url, max_id, isActive)
 
     max_id_empl = db.get_max_id_employee(id)
@@ -130,7 +130,7 @@ def test_patch_employee():
     db_list_after = db.get_emploees_db(max_id)
 
     with allure.step("Редактировать данные сотрудника"):
-        new_lastName, new_email, new_url, new_phone, new_isActive = generate_edit_employee(max_id)
+        new_lastName, new_email, new_url, new_phone, new_isActive = test_generate_edit_employee(max_id)
         edited = api.edit_employee(new_lastName, new_email, new_url, new_phone, new_isActive, max_id_empl)
    
     db.delete_employee_db(max_id_empl)
@@ -146,9 +146,9 @@ def test_patch_employee():
 @allure.description("Проверка удаления сотрудника")
 @allure.feature("DELETE")
 @allure.severity("blocker")
-def test_delete_employee():
+def test_delete_employee()  -> None:
     with allure.step("Cоздание компании"):
-        name, description = generate_company()
+        name, description = test_generate_company()
         db.create_company_db(name, description)
 
     max_id = db.get_max_id_company(id)
@@ -159,7 +159,7 @@ def test_delete_employee():
     db_list_before = db.get_emploees_db(max_id)
 
     with allure.step("Добавление сотрудника"):
-        firstName, lastName, middleName, phone, email, birthdate, url, isActive = generate_employee(max_id)
+        firstName, lastName, middleName, phone, email, birthdate, url, isActive = test_generate_employee(max_id)
         db.create_employee_db(firstName, lastName, middleName, phone, email, birthdate, url, max_id, isActive)
 
     max_id_empl = db.get_max_id_employee(id)
@@ -178,9 +178,9 @@ def test_delete_employee():
 @allure.description("Тест проверяет возможность добавления и удаления сразу нескольких сотудников")
 @allure.feature("ADD, DELETE")
 @allure.severity("blocker")
-def test_add_del_several_empl():
+def test_add_del_several_empl()  -> None:
     with allure.step("Cоздать новую компанию"):
-        name, description = generate_company()
+        name, description = test_generate_company()
         db.create_company_db(name, description)
 
     max_id = db.get_max_id_company(id)
@@ -193,7 +193,7 @@ def test_add_del_several_empl():
     with allure.step("Добавление нескольких сотрудников в компанию"):
         with allure.step("Цикл для добавления сотрудников"):
             for i in range(10):
-                firstName, lastName, middleName, phone, email, birthdate, url, isActive = generate_employee(max_id)
+                firstName, lastName, middleName, phone, email, birthdate, url, isActive = test_generate_employee(max_id)
                 db.create_employee_db(firstName, lastName, middleName, phone, email, birthdate, url, max_id, isActive)
 
     max_id_empl = db.get_max_id_employee(id)
